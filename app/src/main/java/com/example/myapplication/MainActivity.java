@@ -1,95 +1,68 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.view.View.OnClickListener;
+import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-    public Button Input;
-    public Button Start;
-    public Button Cancel;
-    public ProgressBar PB;
-    public EditText ET;
-    public TextView TV;//各个组件
-    public MyHandlerTest HandlerTest;
-    public MyHandlerPross HandlerPross;
-    int Count=0;
-
-    class MyHandlerTest extends Handler {
-        // 通过复写handlerMessage() 从而确定更新UI的操作
+    //Using Start Service, IntentService, and Bind Service to show your name and ID with a Toast
+    private Button Start_Service;
+    private Button Bind_Service;
+    private Button Unbind_Service;
+    private Button IntentService;
+    private MyBinderService.MyBinder mybinder;
+    private ServiceConnection connection=new ServiceConnection() {
         @Override
-        public void handleMessage(Message msg) {
-            if(msg.what==1)
-            {
-                TV.setText("您输入的是"+msg.obj);
-            }
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mybinder=(MyBinderService.MyBinder)service;
+            mybinder.SayHello();
         }
-    }
-    class MyHandlerPross extends Handler {
-        // 通过复写handlerMessage() 从而确定更新UI的操作
         @Override
-        public void handleMessage(Message msg) {
-            if(msg.what==2)
-            {
-                if(Count<=100)
-                {
-                    PB.setProgress(Count);
-                    Count++;
-                }
-            }
+        public void onServiceDisconnected(ComponentName name) {
+            mybinder.SayGoodBye();
         }
-    }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Input=(Button)findViewById(R.id.Input);
-        Start=(Button)findViewById(R.id.Start);
-        Cancel=(Button)findViewById(R.id.Cancel);
-        PB=(ProgressBar)findViewById(R.id.progressBar);
-        ET=(EditText)findViewById(R.id.Edit);
-        TV=(TextView)findViewById(R.id.display);
-        Start.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HandlerPross=new MyHandlerPross();
+        Start_Service=(Button)findViewById(R.id.Start_Service);
+        Unbind_Service=(Button)findViewById(R.id.Unbind_Service);
+        Bind_Service=(Button)findViewById(R.id.Bind_Service);
+        IntentService=(Button)findViewById(R.id.IntentService);
+    }
 
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        Message msg2 = Message.obtain();
-                        msg2.what = 2; // 消息标识
-                        HandlerPross.sendMessage(msg2);
-                    }
-                }, 0, 200);
-            }
-        });
-        Input.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HandlerTest=new MyHandlerTest();
-                Message msg1 = Message.obtain();
-                msg1.what = 1; // 消息标识
-                msg1.obj = ET.getText(); // 获得输入
-                HandlerTest.sendMessage(msg1);
-            }
-        });
+    public void ClickStart_Service(View view){
+        Intent intentOne = new Intent(this,MyService.class);
+        startService(intentOne);//启动服务
+    }
 
+    public void Bind_Service(View view){
+        Intent intent =new Intent(this,MyBinderService.class);
+        bindService(intent,connection,BIND_AUTO_CREATE);//绑定服务
+    }
 
+    public void Unbind_Service(View view){
+        Intent intent =new Intent(this,MyBinderService.class);
+        Toast.makeText(this, "解绑Bind服务 童振宇18231500", Toast.LENGTH_LONG).show();
+        unbindService(connection);//解绑服务
+    }
 
+    public void Cancel(View view){
+        Intent intentOne = new Intent(this,MyService.class);
+        stopService(intentOne);//启动服务
+    }
+
+    public void IntentService(View view){
+        Intent intent =new Intent(this,MyIntentService.class);
+        startService(intent);
     }
 }

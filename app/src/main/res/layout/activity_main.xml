@@ -7,77 +7,62 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/Start"
+        android:id="@+id/Start_Service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="101dp"
-        android:layout_marginLeft="101dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginBottom="189dp"
-        android:text="Start"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:layout_marginTop="76dp"
+        android:onClick="ClickStart_Service"
+        android:text="Start_Service"
+        app:layout_constraintBottom_toTopOf="@+id/Bind_Service"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints,UnknownId" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Unbind_Service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:onClick="Unbind_Service"
+        android:text="Unbind_Service"
+        app:layout_constraintBottom_toTopOf="@+id/IntentService"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Bind_Service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:onClick="Bind_Service"
+        android:text="Bind_Service"
+        app:layout_constraintBottom_toTopOf="@+id/Unbind_Service"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/IntentService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="213dp"
+        android:onClick="IntentService"
+        android:text="IntentService"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
+        android:onClick="Cancel"
         android:text="Cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/Edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/Start"
-        app:layout_constraintTop_toBottomOf="@+id/Start"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/Input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/Edit"
-        app:layout_constraintEnd_toEndOf="@+id/Cancel"
-        app:layout_constraintStart_toStartOf="@+id/Edit"
-        app:layout_constraintTop_toBottomOf="@+id/Start" />
-
-    <TextView
-        android:id="@+id/display"
-        android:layout_width="125dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="411dp"
-        android:text="Display"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Start" />
+        app:layout_constraintTop_toBottomOf="@+id/IntentService"
+        app:layout_constraintVertical_bias="0.412" />
 </androidx.constraintlayout.widget.ConstraintLayout>
